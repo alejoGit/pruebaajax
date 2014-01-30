@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>jsonp example</title>
+<link rel="stylesheet" href="estilos.css">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<script type="text/javascript">
+window.onload = function()
+{
+ 
+  jsonp('http://pruebasalejo.260mb.net/prueba.php');
+
+  var btn = document.getElementById("btnEnviar");
+  
+  btn.addEventListener("click",function(){
+    var id = document.getElementById("txtId").value;
+    var nombre = document.getElementById("txtNombre").value;
+    var contrasena = document.getElementById("txtContrasena").value;
+    jsonp('http://pruebasalejo.260mb.net/escritura.php?txtId='+id+'&txtNombre='+nombre+'&txtContrasena='+contrasena);
+  });
+}
+ 
+function jsonp_callback(res)
+{
+  if(console){
+    console.log(res);
+	}
+
+	document.getElementById("miDiv").innerHTML=res.nombre;
+
+
+}
+function jsonp_callback2(res){
+   location.reload(true);
+}
+ 
+function jsonp(url)
+{
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = url;
+ 
+  var head = document.getElementsByTagName('head')[0];
+  head.appendChild(script);
+  
+
+}
+
+
+</script>
+</head>
+<body>
+	<div id="miDiv"> <img src="loading.gif" width="50px" height="50px" alt=""></div>
+  <form  method="GET">
+    <input type="text" id="txtId"/>
+    <input type="text" id="txtNombre"/>
+    <input type="text" id="txtContrasena"/> 
+     <input type="button" value="enviar" id="btnEnviar"/>     
+  </form>
+
+  
+    
+ 
+</body>
+</html>
